@@ -1,0 +1,2 @@
+module SylabusesHelper
+end
