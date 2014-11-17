@@ -29,11 +29,12 @@ class ChaptersController < ApplicationController
   # POST /chapters
   # POST /chapters.json
   def create
+    @course = Course.find(params[:course_id])
     @chapter = Chapter.new(chapter_params)
 
     respond_to do |format|
       if @chapter.save
-        format.html { redirect_to course_chapter_path(:course_id=>@course.id,:id=> @chapter.id), notice: 'Chapter was successfully created.' }
+        format.html { redirect_to course_chapter_path(@course,@chapter), notice: 'Chapter was successfully created.' }
         format.json { render action: 'show', status: :created, location: @chapter }
       else
         format.html { render action: 'new' }
@@ -61,7 +62,7 @@ class ChaptersController < ApplicationController
   def destroy
     @chapter.destroy
     respond_to do |format|
-      format.html { redirect_to chapters_url }
+      format.html { redirect_to course_chapters_path(@course,@chapter) }
       format.json { head :no_content }
     end
   end

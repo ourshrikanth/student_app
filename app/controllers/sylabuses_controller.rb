@@ -5,6 +5,7 @@ class SylabusesController < ApplicationController
   # GET /sylabuses
   # GET /sylabuses.json
   def index
+    @course = Course.find(params[:course_id])
     @sylabuses = Sylabus.all
   end
 
@@ -15,7 +16,8 @@ class SylabusesController < ApplicationController
 
   # GET /sylabuses/new
   def new
-    @sylabus = Sylabus.new
+    @course = Course.find(params[:course_id])
+    @sylabus = @course.sylabuses.build
   end
 
   # GET /sylabuses/1/edit
@@ -25,11 +27,12 @@ class SylabusesController < ApplicationController
   # POST /sylabuses
   # POST /sylabuses.json
   def create
+    @course = Course.find(params[:course_id])
     @sylabus = Sylabus.new(sylabus_params)
 
     respond_to do |format|
       if @sylabus.save
-        format.html { redirect_to @sylabus, notice: 'Sylabus was successfully created.' }
+        format.html { redirect_to course_sylabus_path(@course,@sylabus), notice: 'Sylabus was successfully created.' }
         format.json { render action: 'show', status: :created, location: @sylabus }
       else
         format.html { render action: 'new' }
@@ -57,19 +60,20 @@ class SylabusesController < ApplicationController
   def destroy
     @sylabus.destroy
     respond_to do |format|
-      format.html { redirect_to sylabuses_url }
+      format.html { redirect_to course_sylabuses_path(@course)}
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_sylabus
-      @sylabus = Sylabus.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_sylabus
+    @sylabus = Sylabus.find(params[:id])
+    @course = Course.find(params[:course_id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def sylabus_params
-      params.require(:sylabus).permit(:user_id, :name)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def sylabus_params
+    params.require(:sylabus).permit(:course_id, :name)
+  end
 end

@@ -4,6 +4,8 @@
 en:
   helpers:
     actions: "Actions"
+    view_sylabus: "View Sylabus"
+    view_chapters: "View Chapters"
     links:
       back: "Back"
       cancel: "Cancel"
