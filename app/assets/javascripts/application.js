@@ -15,3 +15,29 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function () {
+    $('.simple_form').validate({
+        rules: {
+            "course[name]": "required",
+            "course[description]": "required",
+            "course[duration]": {
+                required: true,
+                number: true
+            },
+            "course[charge]": {
+                required: true,
+                number: true
+            },
+            "sylabus[name]": "required",
+            "chapter[name]": "required"
+        },
+        highlight: function (element) {
+            $(element).closest('.control-group').removeClass('success').addClass('error');
+        },
+        success: function (element) {
+            element.addClass('valid')
+            .closest('.control-group').removeClass('error').addClass('success');
+        }
+    });
+});
