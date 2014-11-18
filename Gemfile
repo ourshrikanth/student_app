@@ -37,6 +37,8 @@ gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) support
 gem "twitter-bootstrap-rails"
 gem 'devise'
 gem 'simple_form'
+gem 'haml-rails'
+gem 'html2haml'
 
 group :test do
   gem 'database_cleaner'
