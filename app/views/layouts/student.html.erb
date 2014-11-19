@@ -52,7 +52,8 @@
             <ul class="nav">
               <li><%= link_to "Courses", "/courses"  %></li>
               <li><%#= link_to "Link2", "/path2"  %></li>
-              <li><%= link_to t('sign_out'), destroy_user_session_path, :method => :delete  %></li>
+              <li><%= link_to t('sign_in'), user_session_path, :method => :get  if current_user.nil?%></li>
+              <li><%= link_to t('sign_out'), destroy_user_session_path, :method => :delete  if current_user%></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

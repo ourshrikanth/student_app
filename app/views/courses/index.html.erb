@@ -25,12 +25,12 @@
         <td><%=l course.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_course_path(course), :class => 'btn btn-mini' %>
+                      edit_course_path(course), :class => 'btn btn-mini' if current_user%>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                       course_path(course),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
+                      :class => 'btn btn-mini btn-danger' if current_user%>
           <%= link_to t('.edit', :default => t("helpers.view_sylabus")),
                       course_sylabuses_path(course), :class => 'btn btn-mini' %>
           <%= link_to t('.edit', :default => t("helpers.view_chapters")),
@@ -43,4 +43,4 @@
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_course_path,
-            :class => 'btn btn-primary' %>
+            :class => 'btn btn-primary' if current_user%>
